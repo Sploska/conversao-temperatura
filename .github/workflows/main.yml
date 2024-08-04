@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    
+  workflow_dispatch:
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Faz o checkout do repositório para o Runner, perimitindo que os scripts possam utilizar o conteúdo do repositório.
+      - uses: actions/checkout@v4
+
+      - name: Setup do node.js
+        uses: actions/setup-node@v4.0.3
+        with:
+          node_version: 20.16.0
+
+      - name: Instalação do Mocha para teste
+        run: |
+          cd src;
+          npm install -g mocha;
+          npm install
+
+      - name: Execução do teste
+        run: mocha src/test/convert.js
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v6.5.0
+        with:
+          context: ./src
+          file: Dockerfile
+          push: true
+          tags: |
+            sploska/aula-conversao-temperatura:v1
+            sploska/aula-conversao-temperatura:latest
