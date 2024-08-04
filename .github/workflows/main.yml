@@ -19,7 +19,7 @@ jobs:
       - name: Setup do node.js
         uses: actions/setup-node@v4.0.3
         with:
-          node_version: 20.16.0
+          node-version: 20.16.0
 
       - name: Instalação do Mocha para teste
         run: |
