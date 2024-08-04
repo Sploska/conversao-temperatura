@@ -43,5 +43,5 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: |
-            sploska/aula-conversao-temperatura:v1
+            sploska/aula-conversao-temperatura:${{github.run_number}}
             sploska/aula-conversao-temperatura:latest
